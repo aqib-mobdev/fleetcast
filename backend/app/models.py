@@ -4,6 +4,12 @@ from typing import Literal
 from pydantic import BaseModel, Field, field_validator
 
 
+class CorridorBody(BaseModel):
+    path: list[tuple[float, float]] = Field(min_length=2)
+    load_lbs: int = Field(ge=0, le=80_000)
+    route: str = Field(default="A", max_length=2)
+
+
 class AnalyzeBody(BaseModel):
     origin: str = Field(min_length=2, max_length=200)
     destination: str = Field(min_length=2, max_length=200)

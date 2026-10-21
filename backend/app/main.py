@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 
 from app.config import settings
 from app.errors import DomainError
-from app.models import AnalyzeBody
+from app.models import AnalyzeBody, CorridorBody
 from app.providers import geocode
 from app.services import analysis, corridor
 
@@ -83,9 +83,9 @@ async def analyze_trip(body: AnalyzeBody) -> dict:
     return await analysis.analyze(body)
 
 
-@app.get("/api/trips/{trip_id}/corridor")
-async def trip_corridor(trip_id: str, route: str = Query(default="A", max_length=2)) -> dict:
-    return await corridor.corridor(trip_id, route)
+@app.post("/api/trips/corridor")
+async def trip_corridor(body: CorridorBody) -> dict:
+    return await corridor.build([tuple(point) for point in body.path], body.load_lbs, body.route)
 
 
 @app.get("/")

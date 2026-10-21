@@ -81,7 +81,7 @@ Free key: <https://openrouteservice.org/dev/#/signup>. Without it, the console u
 
 Response shape: `trip`, `routes[]` (with `stops`, `segments`, `ledger`), `verdict`, `alerts`.
 
-`GET /api/trips/{id}/corridor?route=A` — 49 hourly slots, corridor samples with per-hour levels.
+`POST /api/trips/corridor` — body `{ "path": [[lon,lat], …], "load_lbs": 35000, "route": "A" }` returns 49 hourly slots and corridor samples. The endpoint is stateless, so it works on serverless hosts.
 `GET /api/places?q=…` — autocomplete. `GET /api/health` — provider status.
 
 Errors are `{"error": {"code", "message", "field"}}` with 4xx/5xx status codes.
@@ -121,9 +121,29 @@ docker compose up --build
 
 ## Deploy
 
-**API (Render)** — create a Docker web service from `render.yaml` (or point at `backend/Dockerfile`). Health check: `/api/health`. Set `FC_CORS_ORIGINS` to the web app origin and `FC_ORS_API_KEY` if available.
+Both services run on Vercel:
 
-**Web (Vercel)** — project root `frontend`, framework Vite. Set `VITE_API_BASE_URL` to the Render URL before building.
+**API** — project root `backend`. Vercel detects the FastAPI `app` in `app/main.py` and runs it as one Fluid function (`maxDuration: 60` in `backend/vercel.json`). Set:
+- `FC_CORS_ORIGINS` (web origin, or `*` for a demo)
+- `FC_ORS_API_KEY` (optional)
+
+**Web** — project root `frontend`, framework Vite. Set `VITE_API_BASE_URL` to the API URL before building.
+
+```bash
+# API
+cd backend
+vercel deploy --prod --project fleetcast-api --create-if-missing \
+  --env 'FC_CORS_ORIGINS=https://your-web.vercel.app'
+
+# Web
+cd frontend
+vercel deploy --prod --project fleetcast --create-if-missing \
+  --build-env VITE_API_BASE_URL=https://your-api.vercel.app
+```
+
+The analysis and corridor endpoints are stateless, so they survive serverless cold starts. Render remains an option via `render.yaml` for a long-running container, but the current deployment uses Vercel for both.
+
+Live demo: **https://fleetcast-beta.vercel.app** · API: **https://fleetcast-api.vercel.app**
 
 ## Notes and limits
 

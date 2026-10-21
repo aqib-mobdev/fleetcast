@@ -114,7 +114,6 @@ export interface CorridorSample {
 }
 
 export interface Corridor {
-  trip_id: string;
   route: string;
   load_lbs: number;
   start_utc: string;

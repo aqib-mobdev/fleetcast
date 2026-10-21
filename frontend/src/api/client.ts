@@ -44,8 +44,11 @@ export const api = {
   analyze: (input: AnalyzeInput) =>
     call<TripResponse>("/api/trips/analyze", { method: "POST", body: JSON.stringify(input) }),
 
-  corridor: (tripId: string, route: string) =>
-    call<Corridor>(`/api/trips/${tripId}/corridor?route=${encodeURIComponent(route)}`),
+  corridor: (path: [number, number][], loadLbs: number, route: string) =>
+    call<Corridor>("/api/trips/corridor", {
+      method: "POST",
+      body: JSON.stringify({ path, load_lbs: loadLbs, route }),
+    }),
 
   places: (query: string) =>
     call<{ places: Place[] }>(`/api/places?q=${encodeURIComponent(query)}`),

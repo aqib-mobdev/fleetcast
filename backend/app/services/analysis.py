@@ -2,7 +2,6 @@ import math
 import uuid
 from datetime import UTC, datetime, timedelta
 
-from app.cache import store
 from app.config import settings
 from app.domain import checkpoints, exposure, geo, recommend, risk
 from app.domain.severity import Level
@@ -151,35 +150,6 @@ async def analyze(body) -> dict:
         alerts.append("Some segments are unrated; they are excluded from averages, not treated as safe.")
 
     trip_id = uuid.uuid4().hex
-    store.set(
-        f"trip:{trip_id}",
-        {
-            "origin": {
-                "query": body.origin,
-                "label": origin.label,
-                "lat": origin.lat,
-                "lon": origin.lon,
-            },
-            "destination": {
-                "query": body.destination,
-                "label": destination.label,
-                "lat": destination.lat,
-                "lon": destination.lon,
-            },
-            "depart_at": depart.isoformat(),
-            "load_lbs": body.load_lbs,
-            "interval_mi": body.interval_mi,
-            "routes": {
-                ROUTE_KEYS[i]: {
-                    "coords": route.coords,
-                    "cum_miles": route.cum_miles,
-                    "cum_seconds": route.cum_seconds,
-                }
-                for i, route in enumerate(routes)
-            },
-        },
-        cfg.trip_ttl_s,
-    )
 
     return {
         "trip": {

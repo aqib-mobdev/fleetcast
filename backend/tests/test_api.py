@@ -124,18 +124,19 @@ async def test_place_not_found(client, trip_body):
 async def test_corridor_lifecycle(client, trip_body):
     mock_sources()
     analysis = (await client.post("/api/trips/analyze", json=trip_body)).json()
-    trip_id = analysis["trip"]["id"]
+    route = analysis["routes"][0]
+    path = [point for segment in route["segments"] for point in segment["path"]]
 
-    response = await client.get(f"/api/trips/{trip_id}/corridor", params={"route": "A"})
+    response = await client.post(
+        "/api/trips/corridor",
+        json={"path": path, "load_lbs": trip_body["load_lbs"], "route": route["key"]},
+    )
     assert response.status_code == 200, response.text
     heat = response.json()
+    assert heat["route"] == route["key"]
     assert len(heat["hours"]) == 49
     assert heat["samples"]
     assert all(len(sample["levels"]) == 49 for sample in heat["samples"])
 
-    missing_route = await client.get(f"/api/trips/{trip_id}/corridor", params={"route": "Z"})
-    assert missing_route.status_code == 404
-
-    expired = await client.get("/api/trips/missing/corridor", params={"route": "A"})
-    assert expired.status_code == 404
-    assert expired.json()["error"]["code"] == "trip_expired"
+    bad = await client.post("/api/trips/corridor", json={"path": [[-118.0, 34.0]], "load_lbs": 1})
+    assert bad.status_code == 422

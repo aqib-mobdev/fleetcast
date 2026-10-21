@@ -119,7 +119,6 @@ export function makeCorridor(): Corridor {
     values: hours.map(() => ({ wind_mph: 10, rain_in_hr: 0.01, snow_in_hr: 0 })),
   }));
   return {
-    trip_id: "trip-1",
     route: "A",
     load_lbs: 34_000,
     start_utc: hours[0],

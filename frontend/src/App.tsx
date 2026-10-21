@@ -26,7 +26,18 @@ export default function App() {
     () => trip?.routes.find((candidate) => candidate.key === selected) ?? null,
     [trip, selected],
   );
-  const corridor = useCorridor(trip?.trip.id, selected);
+  const corridorPath = useMemo(() => {
+    if (!selectedRoute) return null;
+    const path: [number, number][] = [];
+    for (const segment of selectedRoute.segments) {
+      for (const point of segment.path) {
+        const last = path[path.length - 1];
+        if (!last || last[0] !== point[0] || last[1] !== point[1]) path.push(point);
+      }
+    }
+    return path.length >= 2 ? path : null;
+  }, [selectedRoute]);
+  const corridor = useCorridor(trip?.trip.id, selected, corridorPath, trip?.trip.load_lbs);
   const maxSlot = Math.max(0, (corridor.data?.hours.length ?? 1) - 1);
   const activeSlot = Math.min(slot, maxSlot);
 

@@ -23,10 +23,16 @@ export function useAnalysis() {
   );
 }
 
-export function useCorridor(tripId: string | undefined, route: string | null) {
+export function useCorridor(
+  tripId: string | undefined,
+  route: string | null,
+  path: [number, number][] | null,
+  loadLbs: number | undefined,
+) {
+  const ready = tripId && route && path && path.length >= 2 && loadLbs !== undefined;
   return useSWR(
-    tripId && route ? `corridor:${tripId}:${route}` : null,
-    () => api.corridor(tripId as string, route as string),
+    ready ? `corridor:${tripId}:${route}` : null,
+    () => api.corridor(path as [number, number][], loadLbs as number, route as string),
     { revalidateOnFocus: false, dedupingInterval: 30_000 },
   );
 }

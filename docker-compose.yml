@@ -1,0 +1,27 @@
+services:
+  api:
+    build:
+      context: ./backend
+    environment:
+      FC_ORS_API_KEY: ${FC_ORS_API_KEY:-}
+      FC_CORS_ORIGINS: ${FC_CORS_ORIGINS:-http://localhost:8081,http://127.0.0.1:8081}
+      FC_USER_AGENT: ${FC_USER_AGENT:-fleetcast/1.0}
+    ports:
+      - "8100:8100"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/api/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: ""
+    ports:
+      - "8081:80"
+    depends_on:
+      api:
+        condition: service_started

@@ -1,0 +1,263 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "summary": {
+     "distance": 579584.1,
+     "duration": 20911.2
+    },
+    "segments": [
+     {
+      "distance": 579584.1,
+      "duration": 20911.2,
+      "steps": [
+       {
+        "distance": 157774.0,
+        "duration": 5692.4,
+        "way_points": [
+         0,
+         2
+        ]
+       },
+       {
+        "distance": 184942.4,
+        "duration": 6672.7,
+        "way_points": [
+         2,
+         4
+        ]
+       },
+       {
+        "distance": 150954.9,
+        "duration": 5446.4,
+        "way_points": [
+         4,
+         6
+        ]
+       },
+       {
+        "distance": 85912.7,
+        "duration": 3099.7,
+        "way_points": [
+         6,
+         7
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -118.2437,
+      34.0522
+     ],
+     [
+      -117.37,
+      33.98
+     ],
+     [
+      -116.54,
+      33.92
+     ],
+     [
+      -115.72,
+      33.66
+     ],
+     [
+      -114.6,
+      33.61
+     ],
+     [
+      -113.76,
+      33.43
+     ],
+     [
+      -113.0,
+      33.45
+     ],
+     [
+      -112.074,
+      33.4484
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "summary": {
+     "distance": 575959.2,
+     "duration": 22213.5
+    },
+    "segments": [
+     {
+      "distance": 575959.2,
+      "duration": 22213.5,
+      "steps": [
+       {
+        "distance": 156754.8,
+        "duration": 6045.7,
+        "way_points": [
+         0,
+         2
+        ]
+       },
+       {
+        "distance": 183818.5,
+        "duration": 7089.5,
+        "way_points": [
+         2,
+         4
+        ]
+       },
+       {
+        "distance": 150022.0,
+        "duration": 5786.0,
+        "way_points": [
+         4,
+         6
+        ]
+       },
+       {
+        "distance": 85363.9,
+        "duration": 3292.3,
+        "way_points": [
+         6,
+         7
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -118.2437,
+      34.602199999999996
+     ],
+     [
+      -117.37,
+      34.529999999999994
+     ],
+     [
+      -116.54,
+      34.47
+     ],
+     [
+      -115.72,
+      34.209999999999994
+     ],
+     [
+      -114.6,
+      34.16
+     ],
+     [
+      -113.76,
+      33.98
+     ],
+     [
+      -113.0,
+      34.0
+     ],
+     [
+      -112.074,
+      33.9984
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "summary": {
+     "distance": 580563.8,
+     "duration": 23612.4
+    },
+    "segments": [
+     {
+      "distance": 580563.8,
+      "duration": 23612.4,
+      "steps": [
+       {
+        "distance": 158049.5,
+        "duration": 6428.1,
+        "way_points": [
+         0,
+         2
+        ]
+       },
+       {
+        "distance": 185246.2,
+        "duration": 7534.3,
+        "way_points": [
+         2,
+         4
+        ]
+       },
+       {
+        "distance": 151207.1,
+        "duration": 6149.8,
+        "way_points": [
+         4,
+         6
+        ]
+       },
+       {
+        "distance": 86061.0,
+        "duration": 3500.2,
+        "way_points": [
+         6,
+         7
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -118.5937,
+      33.9022
+     ],
+     [
+      -117.72,
+      33.83
+     ],
+     [
+      -116.89,
+      33.77
+     ],
+     [
+      -116.07,
+      33.51
+     ],
+     [
+      -114.94999999999999,
+      33.46
+     ],
+     [
+      -114.11,
+      33.28
+     ],
+     [
+      -113.35,
+      33.300000000000004
+     ],
+     [
+      -112.42399999999999,
+      33.2984
+     ]
+    ]
+   }
+  }
+ ]
+}

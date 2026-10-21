@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: fleetcast-api
+    runtime: docker
+    plan: free
+    region: ohio
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/health
+    envVars:
+      - key: FC_ORS_API_KEY
+        sync: false
+      - key: FC_CORS_ORIGINS
+        value: https://replace-with-your-vercel-app.vercel.app
+      - key: FC_USER_AGENT
+        value: fleetcast/1.0 (client deployment)
